@@ -12,9 +12,11 @@ public class Crime {
     private String mTitle;
     private Date mDate;
     private boolean mSolved;
-    public Crime(){
-        mId=UUID.randomUUID();
-        mDate=new Date();
+    private int mPosition;
+
+    public Crime() {
+        mId = UUID.randomUUID();
+        mDate = new Date();
     }
 
     public UUID getId() {
@@ -43,5 +45,13 @@ public class Crime {
 
     public void setSolved(boolean solved) {
         mSolved = solved;
+    }
+
+    public int getPosition() {
+        return mPosition;
+    }
+
+    public void setPosition(int position) {
+        mPosition = position;
     }
 }
