@@ -35,9 +35,18 @@ public class CrimeListFragment extends Fragment {
     private boolean mSubtitleVisible;
     private static final String SAVED_SUBTITLE_VISIBLE = "subtitle";
 
+    public static CrimeListFragment newInstance(boolean subtitleVisible) {
+        Bundle args = new Bundle();
+        args.putBoolean(SAVED_SUBTITLE_VISIBLE, subtitleVisible);
+        CrimeListFragment fragment = new CrimeListFragment();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mSubtitleVisible = getArguments().getBoolean(SAVED_SUBTITLE_VISIBLE,false);
         Log.d(TAG, "--onCreate()");
         Log.d(TAG, String.valueOf(savedInstanceState == null));
         setHasOptionsMenu(true);
@@ -108,7 +117,7 @@ public class CrimeListFragment extends Fragment {
             case R.id.new_crime:
                 Crime crime = new Crime();
                 CrimeLab.get(getActivity()).addCrime(crime);
-                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId());
+                Intent intent = CrimePagerActivity.newIntent(getActivity(), crime.getId(), mSubtitleVisible);
                 startActivity(intent);
                 return true;
             case R.id.show_subtitle:
@@ -172,7 +181,7 @@ public class CrimeListFragment extends Fragment {
 
         @Override
         public void onClick(View v) {
-            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId());
+            Intent intent = CrimePagerActivity.newIntent(getActivity(), mCrime.getId(), mSubtitleVisible);
             Log.d(TAG, mCrime.getId().toString());
             startActivity(intent);
         }
