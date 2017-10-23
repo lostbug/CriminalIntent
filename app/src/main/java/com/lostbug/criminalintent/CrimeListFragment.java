@@ -150,9 +150,11 @@ public class CrimeListFragment extends Fragment {
             mRecyclerView.setAdapter(mCrimeAdapter);
             mRecyclerView.getAdapter().notifyItemMoved(0, 5);
         } else {
-            if (mCrime != null) {
-                mCrimeAdapter.notifyItemChanged(mCrime.getPosition());
-            }
+            mCrimeAdapter.setCrimes(crimes);
+            mCrimeAdapter.notifyDataSetChanged();
+//            if (mCrime != null) {
+//                mCrimeAdapter.notifyItemChanged(mCrime.getPosition());
+//            }
         }
         updateSubtitle();
     }
@@ -210,6 +212,9 @@ public class CrimeListFragment extends Fragment {
         @Override
         public int getItemCount() {
             return mCrimes.size();
+        }
+        public void setCrimes(List<Crime> crimes){
+            mCrimes=crimes;
         }
     }
 }
